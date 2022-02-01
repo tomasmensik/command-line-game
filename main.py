@@ -4,8 +4,8 @@ from kivy.config import Config
 from kivy.lang import Builder
 from kivy.uix.relativelayout import RelativeLayout
 
-Config.set('graphics', 'width', '900') # Zde si dáme velikost šírky našeho herního okna
-Config.set('graphics', 'height', '400') # Zde si dáme velikost výšku našeho herního okna
+Config.set('graphics', 'width', '1400') # Zde si dáme velikost šírky našeho herního okna
+Config.set('graphics', 'height', '600') # Zde si dáme velikost výšku našeho herního okna
 
 from kivy import platform
 from kivy.core.window import Window
@@ -25,7 +25,7 @@ class MainWidget(RelativeLayout):
     #TOHLE TO JSOU PROMĚNNÉ, KTERÉ JSOU NASTAVENÉ NA DEFAULT HODNOTU A MĚNÍ SE PODLE TOHO,
     #CO JE ZA PODMÍNKU V BUDOUCÍCH FUNKCÍCH A PODMÍNKÁCH
 
-    menu_widget = ObjectProperty() #Nastavení tzv. sub-class, abychom pak mohli pracovat s touhle proměnou v .kv a .py
+    level_widget = ObjectProperty() #Nastavení tzv. sub-class, abychom pak mohli pracovat s touhle proměnou v .kv a .py
     perspective_point_x = NumericProperty(0) #Opět nastavení tzv. sub-class
     perspective_point_y = NumericProperty(0) #A znova nastavení tzv. sub-class
 
@@ -58,7 +58,9 @@ class MainWidget(RelativeLayout):
     state_game_has_started = False # Říká nám, jestli hra začala nebo ne (více info dole - využívá se hlavně pro button na začátku START místo RESTART)
 
     menu_title = StringProperty("S Y N T H W A V E") # Název labelu při STARTu nebo GAME OVERu
-    menu_button_title = StringProperty("START") # Název buttonu při STARTu
+    menu_button_levels = StringProperty("LEVEL") # Název buttonu
+    menu_button_settings = StringProperty("SETTINGS") # Název buttonu
+    menu_button_credits = StringProperty("CREDITS") # Název buttonu
     score_txt = StringProperty() # Název labelu sloužící pro vypsání skóre
 
     def __init__(self, **kwargs):
@@ -292,13 +294,20 @@ class MainWidget(RelativeLayout):
             self.state_game_over = True
             self.menu_title = "G A M E  O V E R"
             self.menu_button_title = "RESTART"
-            self.menu_widget.opacity = 1
+            self.level_widget.opacity = 1
             print("GAME OVER")
 
-    def on_menu_button_pressed(self):
+    def on_level_button_pressed(self):
         self.reset_game()
         self.state_game_has_started = True
-        self.menu_widget.opacity = 0
+        self.level_widget.opacity = 0
+
+    def on_settings_button_pressed(self):
+        pass
+
+    def on_credits_button_pressed(self):
+        pass
+
 
 
 
